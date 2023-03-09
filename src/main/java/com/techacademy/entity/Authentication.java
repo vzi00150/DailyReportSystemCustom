@@ -2,6 +2,8 @@ package com.techacademy.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -17,6 +19,11 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "authentication1")
 public class Authentication {
+
+    /** 権限用の列挙型 */
+    public static enum Role {
+        一般, 管理者
+    }
     /** 社員番号 */
     @Column(length = 20)
     @Id
@@ -26,13 +33,15 @@ public class Authentication {
     @Column(length = 255)
     private String password;
 
-    /** 権限 */
+    /** 権限 列挙型(文字列)*/
     @Column(length = 10)
-    private String role;
+    @Enumerated(EnumType.STRING)
+    //@NotNull
+    private Role role;
 
     /** EmployeeテーブルのID */
     @OneToOne
-    @JoinColumn(name="employee_id", referencedColumnName="id")
+    @JoinColumn(name="employeeId", referencedColumnName="id")
     private Employee employee;
 
 }

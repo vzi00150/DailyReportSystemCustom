@@ -2,15 +2,20 @@ package com.techacademy.entity;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +26,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name="employee")
+@Where(clause = "delete_flag = 0")
 public class Employee {
 
     /** 主キー。自動生成 */
@@ -33,15 +39,30 @@ public class Employee {
     private String name;
 
     /** 削除フラグ */
-    private Integer delete_flag;
+    private Integer deleteFlag;
 
     /** 登録日時 */
     @Column(updatable = false)
     @CreatedDate
-    private Date created_at;
+    private Date createdAt;
 
     /** 更新日時 */
     @LastModifiedDate
-    private Date updated_at;
+    private Date updatedAt;
+
+    @OneToOne(mappedBy="employee", cascade = CascadeType.ALL)
+    private Authentication authentication;
+
+    /** レコードが削除される前に行なう処理 */
+    @PreRemove
+    @Transactional
+    private void preRemove() {
+        // 認証エンティティからuserを切り離す
+        if (authentication!=null) {
+            authentication.setEmployee(null);
+        }
+    }
+
+
 
 }

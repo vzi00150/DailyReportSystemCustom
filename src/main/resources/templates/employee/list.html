@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>社員一覧</title>
+    <link rel="stylesheet" th:href="@{/css/employee/list.css}">
+</head>
+<body>
+    <h1>日報管理システム</h1>
+    <h2>従業員　一覧</h2>
+    <table>
+        <tr>
+            <th>社員番号</th>
+            <th>氏名</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="employee : ${employeelist}">
+            <td th:text="${employee.authentication.code}"></td>
+            <td th:text="${employee.name}"></td>
+            <td>詳細を見る</td>
+        </tr>
+    </table>
+</body>
+</html>
