@@ -1,0 +1,7 @@
+@charset "UTF-8";
+
+/* h1要素のマージン(margin)を40pxにする */
+h1 {
+    margin: 40px;
+    color: red;
+}
