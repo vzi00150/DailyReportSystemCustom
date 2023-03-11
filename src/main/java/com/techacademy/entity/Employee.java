@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -43,11 +44,9 @@ public class Employee {
 
     /** 登録日時 */
     @Column(updatable = false)
-    @CreatedDate
     private Date createdAt;
 
     /** 更新日時 */
-    @LastModifiedDate
     private Date updatedAt;
 
     @OneToOne(mappedBy="employee", cascade = CascadeType.ALL)

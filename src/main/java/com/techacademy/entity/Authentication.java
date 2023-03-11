@@ -36,12 +36,11 @@ public class Authentication {
     /** 権限 列挙型(文字列)*/
     @Column(length = 10)
     @Enumerated(EnumType.STRING)
-    //@NotNull
     private Role role;
 
     /** EmployeeテーブルのID */
     @OneToOne
-    @JoinColumn(name="employeeId", referencedColumnName="id")
+    @JoinColumn(name="employee_id", referencedColumnName="id")
     private Employee employee;
 
 }
