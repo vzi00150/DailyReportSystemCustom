@@ -43,7 +43,7 @@ public class EmployeeController {
         employee.setDeleteFlag(0);
         employee.setCreatedAt(new Date());
         employee.setUpdatedAt(new Date());
-        //employee.getAuthentication().getEmployee().(employee.getId());
+        //employee.getAuthentication().getEmployee()
         //従業員登録
         service.saveEmployee(employee);
         //一覧処理にリダイレクト
