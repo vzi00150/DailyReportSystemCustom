@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.techacademy.entity.Authentication;
 import com.techacademy.entity.Employee;
 import com.techacademy.repository.EmployeeRepository;
 
@@ -24,6 +25,9 @@ public class EmployeeService {
     /** 従業員の登録を行う　*/
     @Transactional
     public Employee saveEmployee(Employee employee) {
+        Authentication authentication = employee.getAuthentication(); // authenticationの取り出し
+        authentication.setEmployee(employee); // ここでempoloyeeのインスタンスを設定
+
         return employeeRepository.save(employee);
     }
 }
