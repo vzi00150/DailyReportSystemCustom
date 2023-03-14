@@ -22,6 +22,18 @@ public class EmployeeService {
         //リポジトリのfindAllメソッドを呼び出す
         return employeeRepository.findAll();
     }
+
+    /** レコード件をかえす　*/
+    public long getEmployeeCount() {
+        //リポジトリのfindAllメソッドを呼び出す
+        return employeeRepository.count();
+    }
+
+    /** 従業員のを1件検索して返す　*/
+    public Employee getEmployee(Integer id) {
+        return employeeRepository.findById(id).get();
+    }
+
     /** 従業員の登録を行う　*/
     @Transactional
     public Employee saveEmployee(Employee employee) {

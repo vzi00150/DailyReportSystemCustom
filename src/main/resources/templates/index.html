@@ -3,10 +3,20 @@
 <head>
     <meta charset="utf-8">
     <title>日報管理システム</title>
-    <link rel="stylesheet" th:href="@{/css/obj.css}">
+    <link rel="stylesheet" th:href="@{/css/employee/list.css}">
 
 </head>
 <body>
-    <h1>日報管理システム</h1>
+    <header>
+        <nav id="global_navi">
+            <ul>
+                <li class="current"><a href="">日報管理システム</a></li>
+                <li><a th:href="@{/employee/list}">従業員管理</a></li>
+                <li><a href="">日報管理</a></li>
+                <li><a href="">さん</a></li>
+                <li><a href="">ログアウト</a></li>
+            </ul>
+        </nav>
+    </header>
 </body>
 </html>

@@ -1,5 +1,35 @@
 @charset "UTF-8";
 
+header {
+    width: 984px;
+    margin: 0 auto;
+}
+
+
+#global_navi {
+    margin-bottom: 16px;
+}
+
+
+#global_navi ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;  /* ← この行を追加 */
+    /*column-gap: 1px;  /* ← この行を追加 */
+}
+#global_navi ul li {
+    width: 163px;
+    text-align: center;
+}
+#global_navi ul li a {
+    display: block;
+    padding: 10px 16px;
+    background-color: teal;
+    color: #fff;
+    text-decoration: none;
+    transition: background-color .2s linear;
+}
 table {
     border-collapse: collapse;
 }

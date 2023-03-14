@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>従業員 新規登録</title>
+    <title>従業員 更新</title>
     <link rel="stylesheet" th:href="@{/css/employee/list.css}">
 </head>
 <body>
@@ -17,8 +17,10 @@
             </ul>
         </nav>
     </header>
-    <h2>従業員 新規登録ページ</h2>
-    <form method="post" th:action="@{/employee/register}" th:object="${employee}">
+
+    <h2 th:text="'id：' + ${employee.id} + ' の従業員情報 編集ページ'"></h2>
+    <p>（パスワードは変更する場合のみ入力してください）</p>
+    <form method="post" th:action="@{/employee/update/{id}/(id=${employee.id})}" th:object="${employee}">
         <label for="code">社員番号</label>
         <br>
         <input type="text" th:field="*{authentication.code}">
@@ -36,8 +38,16 @@
         <select th:field="*{authentication.role}">
             <option th:each="item:${T(com.techacademy.entity.Authentication.Role).values()}" th:value="${item}" th:text="${item}">
         </select>
+        <input type="hidden" name="deleteFlag" th:value="*{deleteFlag}">
+        <!--
+        <input type="hidden" name="createdAt" th:value="*{createdAt}">
+        <input type="hidden" name="updatedAt" th:value="*{updatedAt}">
+        <input type="hidden" name="authentication.employee" th:value="*{authentication.employee}">
+         -->
         <br>
         <input type="submit" value="投稿">
+        <br>
+        <a th:href="@{/employee/delete/{id}/(id=${employee.id})}">この従業員情報を削除する</a>
         <br>
         <a th:href="@{/employee/list}">一覧に戻る</a>
     </form>

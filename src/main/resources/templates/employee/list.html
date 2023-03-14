@@ -6,7 +6,17 @@
     <link rel="stylesheet" th:href="@{/css/employee/list.css}">
 </head>
 <body>
-    <h1>日報管理システム</h1>
+    <header>
+        <nav id="global_navi">
+            <ul>
+                <li class="current"><a href="">日報管理システム</a></li>
+                <li><a href="">従業員管理</a></li>
+                <li><a href="">日報管理</a></li>
+                <li><a href="">さん</a></li>
+                <li><a href="">ログアウト</a></li>
+            </ul>
+        </nav>
+    </header>
     <h2>従業員　一覧</h2>
     <table>
         <tr>
@@ -17,9 +27,12 @@
         <tr th:each="employee : ${employeelist}">
             <td th:text="${employee.authentication.code}"></td>
             <td th:text="${employee.name}"></td>
-            <td>詳細を見る</td>
+            <td>
+                <a th:href="@{/employee/detail/{id}/(id=${employee.id})}">詳細を見る</a>
+            </td>
         </tr>
     </table>
+    <p th:text="'(全 ' + ${employeecount} + ' 件）'"></p>
     <a th:href="@{/employee/register}">新規従業員の登録</a>
 </body>
 </html>
