@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +19,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "authentication1")
+@Table(name = "authentication")
 public class Authentication {
 
     /** 権限用の列挙型 */
@@ -27,15 +29,18 @@ public class Authentication {
     /** 社員番号 */
     @Column(length = 20)
     @Id
+    @NotEmpty
     private String code;
 
     /** パスワード */
     @Column(length = 255)
+    @NotEmpty
     private String password;
 
     /** 権限 列挙型(文字列)*/
     @Column(length = 10)
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Role role;
 
     /** EmployeeテーブルのID */

@@ -4,12 +4,15 @@ import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.techacademy.entity.Authentication;
 import com.techacademy.entity.Employee;
 import com.techacademy.service.EmployeeService;
 
@@ -41,7 +44,12 @@ public class EmployeeController {
 
     /** 従業員登録処理　*/
     @PostMapping("/register")
-    public String postRegister(Employee employee) {
+    public String postRegister(@Validated Employee employee, BindingResult res, Model model) {
+    //public String postRegister(@Validated Employee employee, @Validated Authentication authentication, BindingResult res, Model model) {
+        if(res.hasErrors()) {
+            // エラーあり
+            return getRegister(employee);
+        }
         employee.setDeleteFlag(0);
         employee.setCreatedAt(LocalDateTime.now());
         employee.setUpdatedAt(LocalDateTime.now());
@@ -63,16 +71,27 @@ public class EmployeeController {
 
     /** employee更新画面を表示 */
     @GetMapping("/update/{id}/")
-    public String getEmpForUpd(@PathVariable("id") Integer id, Model model) {
-        // Modelに登録
-        model.addAttribute("employee", service.getEmployee(id));
+    public String getEmpForUpd(@PathVariable("id") Integer id, Model model, Employee employee) {
+        if(id == null) {
+            // Modelに登録
+            model.addAttribute("employee", employee);
+        } else {
+            // Modelに登録
+            model.addAttribute("employee", service.getEmployee(id));
+        }
+
         // Employee詳細画面に遷移
         return "employee/update";
     }
 
     /** Employee更新処理 */
     @PostMapping("/update/{id}/")
-    public String postEmpForUpd(Employee employee) {
+    public String postEmpForUpd(@Validated Employee employee, BindingResult res, Model model) {
+        if(res.hasErrors()) {
+            //エラーあり
+            Integer id = null;
+            return getEmpForUpd(id, model, employee);
+        }
         //employee.setDeleteFlag(0);
         employee.setUpdatedAt(LocalDateTime.now());
         // Employee保存

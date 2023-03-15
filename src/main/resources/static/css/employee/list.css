@@ -5,6 +5,9 @@ header {
     margin: 0 auto;
 }
 
+.err {
+    color: red;
+}
 
 #global_navi {
     margin-bottom: 16px;

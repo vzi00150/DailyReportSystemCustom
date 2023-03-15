@@ -27,7 +27,8 @@
         <br>
         <label for="name">氏名</label>
         <br>
-        <input type="text" th:field="*{name}">
+        <input type="text" th:field="*{name}" th:errorclass="err">
+        <span th:errors="*{name}" class="err"></span>
         <br>
         <label for="password">パスワード</label>
         <br>

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.Where;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,6 +34,7 @@ public class Employee {
     private Integer id;
 
     /** 名前。20桁。*/
+    @NotEmpty
     @Column(length = 20)
     private String name;
 
