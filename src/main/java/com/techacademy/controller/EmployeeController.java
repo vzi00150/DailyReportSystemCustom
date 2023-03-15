@@ -1,6 +1,6 @@
 package com.techacademy.controller;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,8 +43,8 @@ public class EmployeeController {
     @PostMapping("/register")
     public String postRegister(Employee employee) {
         employee.setDeleteFlag(0);
-        employee.setCreatedAt(new Date());
-        employee.setUpdatedAt(new Date());
+        employee.setCreatedAt(LocalDateTime.now());
+        employee.setUpdatedAt(LocalDateTime.now());
         //employee.getAuthentication().getEmployee()
         //従業員登録
         service.saveEmployee(employee);
@@ -74,7 +74,7 @@ public class EmployeeController {
     @PostMapping("/update/{id}/")
     public String postEmpForUpd(Employee employee) {
         //employee.setDeleteFlag(0);
-        employee.setUpdatedAt(new Date());
+        employee.setUpdatedAt(LocalDateTime.now());
         // Employee保存
         service.saveEmployee(employee);
         // 一覧画面にリダイレクト
@@ -88,7 +88,7 @@ public class EmployeeController {
         //論理削除フラグに１を設定
         employee.setDeleteFlag(1);
         //更新日付設定
-        employee.setUpdatedAt(new Date());
+        employee.setUpdatedAt(LocalDateTime.now());
         // Employee保存
         service.saveEmployee(employee);
         // 一覧画面にリダイレクト
