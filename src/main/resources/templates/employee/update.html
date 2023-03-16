@@ -20,7 +20,8 @@
 
     <h2 th:text="'id：' + ${employee.id} + ' の従業員情報 編集ページ'"></h2>
     <p>（パスワードは変更する場合のみ入力してください）</p>
-    <form method="post" th:action="@{/employee/update/{id}/(id=${employee.id})}" th:object="${employee}">
+    <form method="post" th:action="@{/employee/update/}" th:object="${employee}">
+        <input type="hidden" th:field="*{id}">
         <label for="code">社員番号</label>
         <br>
         <input type="text" th:field="*{authentication.code}" readonly>
@@ -30,10 +31,11 @@
         <input type="text" th:field="*{name}" th:errorclass="err">
         <span th:errors="*{name}" class="err"></span>
         <br>
-        <label for="password">パスワード</label>
+        <label for="pass">パスワード</label>
         <br>
-        <input type="password" th:field="*{authentication.password}">
-        <br>
+        <input type="password" name="pass">
+        <input type="hidden" th:field="*{authentication.password}">
+         <br>
         <label for="role">権限</label>
         <br>
         <select th:field="*{authentication.role}">

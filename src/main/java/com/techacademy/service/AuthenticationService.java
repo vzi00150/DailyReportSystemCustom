@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.techacademy.entity.Authentication;
+
 import com.techacademy.repository.AuthenticationRepository;
 
 @Service
@@ -20,4 +21,6 @@ public class AuthenticationService {
         // リポジトリのfindAllメソッドを呼び出す
         return authenticationRepository.findAll();
     }
+
+
 }
