@@ -2,6 +2,7 @@ package com.techacademy.controller;
 
 import java.time.LocalDateTime;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,7 +60,7 @@ public class EmployeeController {
         try {
             // Employee保存
             service.saveEmployee(employee);
-        } catch (DuplicateKeyException e) {
+        } catch (DataIntegrityViolationException e) {
             res.rejectValue("authentication.code", "code.duplicated");
             return getRegister(employee);
         } catch (Exception e) {
@@ -111,18 +112,8 @@ public class EmployeeController {
             employee.getAuthentication().setPassword(pass);
         }
 
-        try {
-            // Employee保存
-            service.saveEmployee(employee);
-        } catch (DuplicateKeyException e) {
-            res.rejectValue("code", "code.duplicated");
-            Integer id = null;
-            return getEmpForUpd(id, model, employee);
-        } catch (Exception e) {
-            res.rejectValue("code", "code.dberror");
-            Integer id = null;
-            return getEmpForUpd(id, model, employee);
-        }
+        // Employee保存
+        service.saveEmployee(employee);
 
         // 一覧画面にリダイレクト
         return "redirect:/employee/list";
