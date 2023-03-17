@@ -55,11 +55,22 @@ public class EmployeeController {
         employee.setCreatedAt(LocalDateTime.now());
         employee.setUpdatedAt(LocalDateTime.now());
         //employee.getAuthentication().getEmployee()
-        //従業員登録
-        service.saveEmployee(employee);
+
+        try {
+            // Employee保存
+            service.saveEmployee(employee);
+        } catch (DuplicateKeyException e) {
+            res.rejectValue("authentication.code", "code.duplicated");
+            return getRegister(employee);
+        } catch (Exception e) {
+            res.rejectValue("authentication.code", "code.dberror");
+            return getRegister(employee);
+        }
         //一覧処理にリダイレクト
         return "redirect:/employee/list";
     }
+
+
 
     /** Employee詳細画面を表示 */
     @GetMapping("/detail/{id}/")
@@ -69,6 +80,7 @@ public class EmployeeController {
         // Employee詳細画面に遷移
         return "employee/detail";
     }
+
 
     /** employee更新画面を表示 */
     @GetMapping("/update/{id}/")
