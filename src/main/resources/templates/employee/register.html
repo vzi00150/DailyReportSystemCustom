@@ -12,7 +12,7 @@
                 <li class="current"><a href="">日報管理システム</a></li>
                 <li><a href="">従業員管理</a></li>
                 <li><a href="">日報管理</a></li>
-                <li><a href="">さん</a></li>
+                <li ><a th:text="${username} + ' さん'"></a></li>
                 <li>
                     <form method="post" th:action="@{/logout}">
                         <input type="submit" value="ログアウト" class="logout">

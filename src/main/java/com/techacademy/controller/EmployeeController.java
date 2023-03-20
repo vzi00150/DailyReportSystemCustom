@@ -1,5 +1,6 @@
 package com.techacademy.controller;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +17,31 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.techacademy.entity.Authentication;
 import com.techacademy.entity.Employee;
+import com.techacademy.service.AuthenticationService;
 import com.techacademy.service.EmployeeService;
 
 @Controller
 @RequestMapping("employee")
 public class EmployeeController {
     private final EmployeeService service;
+    private final AuthenticationService authservice;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public EmployeeController(EmployeeService service) {
+    public EmployeeController(EmployeeService service, AuthenticationService authservice) {
         this.service = service;
+        this.authservice = authservice;
     }
 
     /** 一覧画面 */
     @GetMapping("/list")
-    public String getList(Model model) {
+    public String getList(Model model, Principal principal) {
+      //入力された社員コードから名前を取得して、usernameにセットする
+        Authentication authentication = authservice.getAuthentication(principal.getName());
+        model.addAttribute("username", authentication.getEmployee().getName());
         //全件検索結果をModelに登録
         model.addAttribute("employeelist", service.getEmployeeList());
         model.addAttribute("employeecount", service.getEmployeeCount());
@@ -43,17 +51,24 @@ public class EmployeeController {
 
     /** 従業員登録画面を表示 */
     @GetMapping("/register")
-    public String getRegister(@ModelAttribute Employee employee) {
+    public String getRegister(Employee employee, Model model, Principal principal) {
+        //入力された社員コードから名前を取得して、usernameにセットする
+        Authentication authentication = authservice.getAuthentication(principal.getName());
+        model.addAttribute("username", authentication.getEmployee().getName());
+
+        //従業員登録用オブジェクト
+        model.addAttribute("employee", employee);
+
         // 従業員登録画面に遷移
         return "employee/register";
     }
 
     /** 従業員登録処理　*/
     @PostMapping("/register")
-    public String postRegister(@Validated Employee employee, BindingResult res, Model model) {
+    public String postRegister(@Validated Employee employee, BindingResult res, Model model, Principal principal) {
         if(res.hasErrors()) {
             // エラーあり
-            return getRegister(employee);
+            return getRegister(employee,model,principal);
         }
 
         employee.setDeleteFlag(0);
@@ -66,10 +81,10 @@ public class EmployeeController {
             service.saveEmployee(employee);
         } catch (DataIntegrityViolationException e) {
             res.rejectValue("authentication.code", "code.duplicated");
-            return getRegister(employee);
+            return getRegister(employee,model,principal);
         } catch (Exception e) {
             res.rejectValue("authentication.code", "code.dberror");
-            return getRegister(employee);
+            return getRegister(employee,model,principal);
         }
         //一覧処理にリダイレクト
         return "redirect:/employee/list";
@@ -79,7 +94,11 @@ public class EmployeeController {
 
     /** Employee詳細画面を表示 */
     @GetMapping("/detail/{id}/")
-    public String getEmployee(@PathVariable("id") Integer id, Model model) {
+    public String getEmployee(@PathVariable("id") Integer id, Model model, Principal principal) {
+        //入力された社員コードから名前を取得して、usernameにセットする
+        Authentication authentication = authservice.getAuthentication(principal.getName());
+        model.addAttribute("username", authentication.getEmployee().getName());
+
         // Modelに登録
         model.addAttribute("employee", service.getEmployee(id));
         // Employee詳細画面に遷移
@@ -89,7 +108,11 @@ public class EmployeeController {
 
     /** employee更新画面を表示 */
     @GetMapping("/update/{id}/")
-    public String getEmpForUpd(@PathVariable("id") Integer id, Model model, Employee employee) {
+    public String getEmpForUpd(@PathVariable("id") Integer id, Model model, Employee employee, Principal principal) {
+        //入力された社員コードから名前を取得して、usernameにセットする
+        Authentication authentication = authservice.getAuthentication(principal.getName());
+        model.addAttribute("username", authentication.getEmployee().getName());
+
         if(id == null) {
             // Modelに登録
             model.addAttribute("employee", employee);
@@ -104,11 +127,11 @@ public class EmployeeController {
 
     /** Employee更新処理 */
     @PostMapping("/update")
-    public String postEmpForUpd(@Validated Employee employee, BindingResult res, @RequestParam("pass") String pass, Model model) {
+    public String postEmpForUpd(@Validated Employee employee, BindingResult res, @RequestParam("pass") String pass, Model model, Principal principal) {
         if(res.hasErrors()) {
             //エラーあり
             Integer id = null;
-            return getEmpForUpd(id, model, employee);
+            return getEmpForUpd(id, model, employee, principal);
         }
         //employee.setDeleteFlag(0);
         employee.setUpdatedAt(LocalDateTime.now());

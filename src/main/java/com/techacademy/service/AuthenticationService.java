@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.techacademy.entity.Authentication;
+import com.techacademy.entity.Employee;
 import com.techacademy.repository.AuthenticationRepository;
 
 @Service
@@ -32,6 +33,11 @@ public class AuthenticationService implements UserDetailsService  {
     public List<Authentication> getAuthenticationList() {
         // リポジトリのfindAllメソッドを呼び出す
         return authenticationRepository.findAll();
+    }
+
+    /** 1件検索して返す　*/
+    public Authentication getAuthentication(String code) {
+        return authenticationRepository.findById(code).get();
     }
 
 
