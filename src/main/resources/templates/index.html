@@ -10,8 +10,13 @@
     <header>
         <nav id="global_navi">
             <ul>
-                <li class="current"><a href="">日報管理システム</a></li>
-                <li><a th:href="@{/employee/list}">従業員管理</a></li>
+                <li><a>日報管理システム</a></li>
+                <li th:if="${role == 0}">
+                    <a>従業員管理</a>
+                </li>
+                <li th:if="${role == 1}" class="link">
+                    <a th:href="@{/employee/list}" >従業員管理</a>
+                </li>
                 <li><a href="">日報管理</a></li>
                 <li ><a th:text="${username} + ' さん'"></a></li>
                 <li>

@@ -55,6 +55,6 @@ th, td {
   transition    : .3s;         /* なめらか変化 */
   border: none;
 }
-.logout:hover {
+.logout:hover, .link:hover {
   opacity       : 0.8;         /* カーソル時透明度 */
 }

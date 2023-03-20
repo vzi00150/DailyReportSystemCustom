@@ -25,6 +25,8 @@ public class ToppageController {
         //入力された社員コードから名前を取得して、usernameにセットする
         Authentication authentication = service.getAuthentication(principal.getName());
         model.addAttribute("username", authentication.getEmployee().getName());
+        
+        model.addAttribute("role", authentication.getRole().ordinal());
         return "index";
     }
 }

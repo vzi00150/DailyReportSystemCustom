@@ -42,6 +42,8 @@ public class EmployeeController {
       //入力された社員コードから名前を取得して、usernameにセットする
         Authentication authentication = authservice.getAuthentication(principal.getName());
         model.addAttribute("username", authentication.getEmployee().getName());
+        model.addAttribute("role", authentication.getRole().ordinal());
+
         //全件検索結果をModelに登録
         model.addAttribute("employeelist", service.getEmployeeList());
         model.addAttribute("employeecount", service.getEmployeeCount());
@@ -55,6 +57,7 @@ public class EmployeeController {
         //入力された社員コードから名前を取得して、usernameにセットする
         Authentication authentication = authservice.getAuthentication(principal.getName());
         model.addAttribute("username", authentication.getEmployee().getName());
+        model.addAttribute("role", authentication.getRole().ordinal());
 
         //従業員登録用オブジェクト
         model.addAttribute("employee", employee);
@@ -98,6 +101,7 @@ public class EmployeeController {
         //入力された社員コードから名前を取得して、usernameにセットする
         Authentication authentication = authservice.getAuthentication(principal.getName());
         model.addAttribute("username", authentication.getEmployee().getName());
+        model.addAttribute("role", authentication.getRole().ordinal());
 
         // Modelに登録
         model.addAttribute("employee", service.getEmployee(id));
@@ -112,6 +116,7 @@ public class EmployeeController {
         //入力された社員コードから名前を取得して、usernameにセットする
         Authentication authentication = authservice.getAuthentication(principal.getName());
         model.addAttribute("username", authentication.getEmployee().getName());
+        model.addAttribute("role", authentication.getRole().ordinal());
 
         if(id == null) {
             // Modelに登録
