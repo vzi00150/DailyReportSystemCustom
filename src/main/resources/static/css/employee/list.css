@@ -1,7 +1,7 @@
 @charset "UTF-8";
 
 header {
-    width: 984px;
+    width: 978px;
     margin: 0 auto;
 }
 
@@ -22,12 +22,12 @@ header {
     /*column-gap: 1px;  /* ← この行を追加 */
 }
 #global_navi ul li {
-    width: 163px;
+    width: 195px;
     text-align: center;
 }
 #global_navi ul li a {
     display: block;
-    padding: 10px 16px;
+    padding: 11px 16px;
     background-color: teal;
     color: #fff;
     text-decoration: none;
@@ -40,4 +40,21 @@ table {
 th, td {
     border: solid 1px black;
     padding: 10px 20px;
+}
+
+.logout {
+  display       : block;
+  font-size     : 13pt;        /* 文字サイズ */
+  text-align    : center;      /* 文字位置   */
+  cursor        : pointer;     /* カーソル   */
+  padding       : 14.5px 20px;   /* 余白       */
+  background    :  teal;     /* 背景色     */
+  color         : #ffffff;     /* 文字色     */
+  line-height   : 1em;         /* 1行の高さ  */
+  opacity       : 1;           /* 透明度     */
+  transition    : .3s;         /* なめらか変化 */
+  border: none;
+}
+.logout:hover {
+  opacity       : 0.8;         /* カーソル時透明度 */
 }

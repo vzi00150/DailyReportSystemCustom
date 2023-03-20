@@ -2,8 +2,9 @@ package com.techacademy.controller;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -22,6 +23,9 @@ import com.techacademy.service.EmployeeService;
 @RequestMapping("employee")
 public class EmployeeController {
     private final EmployeeService service;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public EmployeeController(EmployeeService service) {
         this.service = service;
@@ -55,7 +59,7 @@ public class EmployeeController {
         employee.setDeleteFlag(0);
         employee.setCreatedAt(LocalDateTime.now());
         employee.setUpdatedAt(LocalDateTime.now());
-        //employee.getAuthentication().getEmployee()
+        employee.getAuthentication().setPassword(passwordEncoder.encode(employee.getAuthentication().getPassword()));
 
         try {
             // Employee保存
@@ -109,7 +113,7 @@ public class EmployeeController {
         //employee.setDeleteFlag(0);
         employee.setUpdatedAt(LocalDateTime.now());
         if (!pass.equals("")) {
-            employee.getAuthentication().setPassword(pass);
+            employee.getAuthentication().setPassword(passwordEncoder.encode(pass));
         }
 
         // Employee保存
