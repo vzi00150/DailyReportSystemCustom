@@ -25,7 +25,7 @@ public class EmployeeService {
 
     /** レコード件をかえす　*/
     public long getEmployeeCount() {
-        //リポジトリのfindAllメソッドを呼び出す
+        //リポジトリのcountメソッドを呼び出す
         return employeeRepository.count();
     }
 

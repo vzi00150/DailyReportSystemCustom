@@ -1,6 +1,7 @@
 package com.techacademy.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -8,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
@@ -53,6 +55,10 @@ public class Employee {
     @Valid
     private Authentication authentication;
 
+    @OneToMany(mappedBy="employee", cascade = CascadeType.ALL)
+    @Valid
+    private List<Report> report;
+
     /** レコードが削除される前に行なう処理 */
     @PreRemove
     @Transactional
@@ -61,7 +67,11 @@ public class Employee {
         if (authentication!=null) {
             authentication.setEmployee(null);
         }
+        if (report!=null) {
+        //    report.setReport(null);
+        }
     }
+
 
 
 
