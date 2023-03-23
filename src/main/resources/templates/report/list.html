@@ -16,7 +16,7 @@
                 <li th:if="${role == 1}" class="link">
                     <a th:href="@{/employee/list}" >従業員管理</a>
                 </li>
-                <li><a href="">日報管理</a></li>
+                <li class="link"><a href="@{/report/list}">日報管理</a></li>
                 <li ><a th:text="${username} + ' さん'"></a></li>
                 <li>
                     <form method="post" th:action="@{/logout}">
@@ -35,15 +35,15 @@
             <th>操作</th>
         </tr>
         <tr th:each="report : ${reportlist}">
-            <td th:text="*{employee.name}"></td>
-            <td th:text="*{reportDate}"></td>
-            <td th:text="*{title}"></td>
+            <td th:text="${report.employee.name}"></td>
+            <td th:text="${report.reportDate}"></td>
+            <td th:text="${report.title}"></td>
             <td>
                 <a th:href="@{/report/detail/{id}/(id=*{id})}">詳細を見る</a>
             </td>
         </tr>
     </table>
-    <p th:text="'(全 ' + ${ereportcount} + ' 件）'"></p>
+    <p th:text="'(全 ' + ${reportcount} + ' 件）'"></p>
     <a th:href="@{/report/register}">新規日報の登録</a>
 </body>
 </html>

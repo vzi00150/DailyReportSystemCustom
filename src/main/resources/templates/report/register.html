@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>日報 新規登録</title>
+    <link rel="stylesheet" th:href="@{/css/employee/list.css}">
+</head>
+<body>
+    <header>
+        <nav id="global_navi">
+            <ul>
+                <li><a>日報管理システム</a></li>
+                <li th:if="${role == 0}">
+                    <a>従業員管理</a>
+                </li>
+                <li th:if="${role == 1}" class="link">
+                    <a th:href="@{/employee/list}" >従業員管理</a>
+                </li>
+                <li class="link"><a href="@{/report/list}">日報管理</a></li>
+                <li ><a th:text="${username} + ' さん'"></a></li>
+                <li>
+                    <form method="post" th:action="@{/logout}">
+                        <input type="submit" value="ログアウト" class="logout">
+                    </form>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <h2>日報 新規登録ページ</h2>
+    <form method="post" th:action="@{/report/register}" th:object="${report}">
+        <label for="reportDate">日付</label>
+        <br>
+        <input type="date" th:field="*{reportDate}" th:errorclass="err">
+        <span th:errors="*{reportDate}" class="err"></span>
+        <br>
+        <label for="name">氏名</label>
+        <br>
+        <label th:text="${username}"></label>
+        <br>
+        <label for="title">タイトル</label>
+        <br>
+        <input type="text" th:field="*{title}" th:errorclass="err">
+        <span th:errors="*{title}" class="err"></span>
+        <br>
+        <label for="content">内容</label>
+        <br>
+        <textarea rows="10" cols="30" th:field="*{content}" th:errorclass="err"></textarea>
+        <span th:errors="*{content}" class="err"></span>
+        <br>
+        <input type="submit" value="投稿">
+        <br>
+        <a th:href="@{/report/list}">一覧に戻る</a>
+    </form>
+</body>
+</html>

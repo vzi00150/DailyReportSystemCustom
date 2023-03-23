@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Type;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,10 +37,12 @@ public class Report {
 
     /** タイトル */
     @Column(nullable = false, length = 255)
+    @NotBlank
     private String title;
 
     /** content */
     @Column(nullable = false)
+    @NotBlank
     @Type(type="text")
     private String content;
 
