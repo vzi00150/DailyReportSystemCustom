@@ -2,13 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>日報 新規登録</title>
+    <title>日報 更新</title>
     <link rel="stylesheet" th:href="@{/css/employee/list.css}">
 </head>
 <body>
     <header>
         <nav id="global_navi">
-            <ul>
+           <ul>
                 <li class="link"><a th:href="@{/}">日報管理システム</a></li>
                 <li th:if="${role == 0}">
                     <a>従業員管理</a>
@@ -26,8 +26,10 @@
             </ul>
         </nav>
     </header>
-    <h2>日報 新規登録ページ</h2>
-    <form method="post" th:action="@{/report/register}" th:object="${report}">
+
+    <h2>日報 編集ページ</h2>
+    <form method="post" th:action="@{/report/update/}" th:object="${report}">
+        <input type="hidden" th:field="*{id}">
         <label for="reportDate">日付</label>
         <br>
         <input type="date" th:field="*{reportDate}" th:errorclass="err">
@@ -35,7 +37,7 @@
         <br>
         <label for="name">氏名</label>
         <br>
-        <label th:text="${username}"></label>
+        <label th:text="*{employee.name}"></label>
         <br>
         <label for="title">タイトル</label>
         <br>

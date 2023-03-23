@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
-    <title>従業員情報詳細</title>
+    <title>日報詳細</title>
     <link rel="stylesheet" th:href="@{/css/employee/list.css}">
 </head>
 <body>
     <header>
         <nav id="global_navi">
-            <ul>
-                <li class="link"><a th:href="@{/}">日報管理システム</a></li>
+           <ul>
+                 <li class="link"><a th:href="@{/}">日報管理システム</a></li>
                 <li th:if="${role == 0}">
                     <a>従業員管理</a>
                 </li>
@@ -23,19 +23,20 @@
                         <input type="submit" value="ログアウト" class="logout">
                     </form>
                 </li>
-            </ul>
-        </nav>
+           </ul>
+         </nav>
     </header>
-    <h2 th:text="'id：' + ${employee.id} + ' の従業員情報 詳細ページ'"></h2>
-    <table th:object="${employee}">
-        <tr><th>社員番号</th><td th:text="*{authentication.code}"></td></tr>
-        <tr><th>氏名</th><td th:text="*{name}"></td></tr>
-        <tr><th>権限</th><td th:text="*{authentication.role}"></td></tr>
-        <tr><th>更新日時</th><td th:text="*{#temporals.format(updatedAt, 'yyyy/MM/dd HH:mm:ss')}"></td></tr>
+    <h2>日報 詳細ページ</h2>
+    <table th:object="${report}">
+        <tr><th>氏名</th><td th:text="*{employee.name}"></td></tr>
+        <tr><th>日付</th><td th:text="*{#temporals.format(reportDate, 'yyyy/MM/dd')}"></td></tr>
+        <tr><th>タイトル</th><td th:text="*{title}"></td></tr>
+        <tr><th>内容</th><td><pre th:text="*{content}"></pre></td></tr>
         <tr><th>登録日時</th><td th:text="*{#temporals.format(createdAt, 'yyyy/MM/dd HH:mm:ss')}"></td></tr>
+        <tr><th>更新日時</th><td th:text="*{#temporals.format(updatedAt, 'yyyy/MM/dd HH:mm:ss')}"></td></tr>
     </table>
-    <a th:href="@{/employee/update/{id}/(id=${employee.id})}">この従業員情報を編集する</a>
+    <a th:href="@{/report/update/{id}/(id=${report.id})}">この日報を編集する</a>
     <br>
-    <a th:href="@{/employee/list}">一覧に戻る</a>
+    <a th:href="@{/report/list}">一覧に戻る</a>
 </body>
 </html>

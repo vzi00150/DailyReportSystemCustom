@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>Error</title>
+    <link rel="stylesheet" th:href="@{/css/employee/list.css}">
+</head>
+<body>
+    <!-- エラー内容を表示 -->
+    <h1 th:text="${status} + ' ' + ${error}"></h1>
+    <p th:text="${message}"></p>
+    <p>Top画面に戻る</p>
+    <form method="get" th:action="@{/}">
+        <button class="errorbtn" type="submit">Top画面に戻る</button>
+    </form>
+</body>
+</html>

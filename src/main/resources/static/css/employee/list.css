@@ -42,7 +42,7 @@ th, td {
     padding: 10px 20px;
 }
 
-.logout {
+.logout, .errorbtn {
   display       : block;
   font-size     : 13pt;        /* 文字サイズ */
   text-align    : center;      /* 文字位置   */
@@ -55,6 +55,10 @@ th, td {
   transition    : .3s;         /* なめらか変化 */
   border: none;
 }
-.logout:hover, .link:hover {
+.logout:hover, .link:hover , .errorbtn:hover  {
   opacity       : 0.8;         /* カーソル時透明度 */
+}
+
+pre {
+    font-family: "Hiragino Kaku Gothic Pro",Meiryo,"MS PGothic",Helvetica,Arial,sans-serif;
 }
