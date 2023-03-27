@@ -1,15 +1,12 @@
 @charset "UTF-8";
 
-header {
-    width: 978px;
-    margin: 0 auto;
-}
-
 .err {
     color: red;
 }
 
 #global_navi {
+    width: 978px;
+    margin: 0 auto;
     margin-bottom: 16px;
 }
 
